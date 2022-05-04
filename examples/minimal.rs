@@ -1,5 +1,5 @@
 use bevy::prelude::*;
-use bevy_mod_raycast::{DefaultPluginState, DefaultRaycastingPlugin, RayCastMesh, RayCastSource};
+use bevy_mod_raycast::{DefaultPluginState, DefaultRaycastingPlugin, RayCastMesh, RayCastSource, Intersection};
 
 // This example casts a ray from the camera using its transform, intersecting a mesh, and displays
 // the debug cursor at the intersection.

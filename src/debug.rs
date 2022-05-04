@@ -101,6 +101,7 @@ pub fn update_debug_cursor<T: 'static + Send + Sync>(
     for raycast_source in raycast_source_query.iter() {
         match raycast_source.intersect_top() {
             Some(top_intersection) => {
+                info!("faces: {:?}",top_intersection.1.world_triangle_indices());
                 let transform_new = top_intersection.1.normal_ray().to_transform();
                 for mut transform in cursor_query.iter_mut() {
                     *transform = GlobalTransform::from_matrix(transform_new);

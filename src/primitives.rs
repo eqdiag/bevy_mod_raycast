@@ -14,6 +14,7 @@ pub struct Intersection {
     normal: Vec3,
     distance: f32,
     triangle: Option<Triangle>,
+    indices: Option<TriangleFace>,
 }
 impl Intersection {
     pub fn new(
@@ -21,12 +22,14 @@ impl Intersection {
         normal: Vec3,
         pick_distance: f32,
         triangle: Option<Triangle>,
+        indices: Option<TriangleFace>,
     ) -> Self {
         Intersection {
             position,
             normal,
             distance: pick_distance,
             triangle,
+            indices,
         }
     }
     /// Position vector describing the intersection position.
@@ -47,6 +50,11 @@ impl Intersection {
     /// Triangle that was intersected with in World coordinates
     pub fn world_triangle(&self) -> Option<Triangle> {
         self.triangle
+    }
+
+    /// Triangle that was intersected with in World coordinates
+    pub fn world_triangle_indices(&self) -> Option<TriangleFace> {
+        self.indices
     }
 }
 
@@ -217,6 +225,23 @@ impl From<[Vec3A; 3]> for Triangle {
             v0: vertices[0],
             v1: vertices[1],
             v2: vertices[2],
+        }
+    }
+}
+
+#[derive(Debug, PartialEq, Copy, Clone)]
+pub struct TriangleFace {
+    pub i0: usize,
+    pub i1: usize,
+    pub i2: usize,
+}
+
+impl From<[usize; 3]> for TriangleFace {
+    fn from(indices: [usize;3]) -> Self {
+        TriangleFace {
+            i0: indices[0],
+            i1: indices[1],
+            i2: indices[2],
         }
     }
 }
